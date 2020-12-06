@@ -11,7 +11,7 @@ export class ParticipantsService {
   /**
    * Participants mock list
    */
-  participants = [
+  private participants = [
     {
       id: Guid.create(),
       name: 'Humans',
