@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { pathToFileURL } from 'url';
 import { AlertNotificationType } from '../models/enums/AlertNotificationType.enum';
 import { AlertNotification } from '../models/interfaces/AlertNotification.interface';
 import { Participant } from '../models/interfaces/Participant.interface';
 import { setAlertNotifcation } from '../store/action/alert-notification.actions';
+import { Guid } from 'guid-typescript';
 
 @Injectable({ providedIn: 'root' })
 export class ParticipantsService {
@@ -13,19 +13,14 @@ export class ParticipantsService {
    */
   participants = [
     {
-      id: 123,
+      id: Guid.create(),
       name: 'Humans',
     },
     {
-      id: 321,
+      id: Guid.create(),
       name: 'Noxus',
     }
   ];
-
-  /**
-   * mock participant id
-   */
-  id = Math.floor(Math.random() * 1000);
 
   constructor(private store: Store<{ notification: AlertNotification }>) {
   }
@@ -58,7 +53,7 @@ export class ParticipantsService {
    * return participants list with new participant pushed
    */
   create(participantName: string): Participant[] {
-    const param = { name: participantName, id: this.id++ };
+    const param = { name: participantName, id: Guid.create() };
 
     const hasParticipant = this.get(param);
 

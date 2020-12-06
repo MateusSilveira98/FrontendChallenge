@@ -6,6 +6,7 @@ import { Participant } from 'src/app/models/interfaces/Participant.interface';
 import { TournamentSwitching } from 'src/app/models/interfaces/TournamentSwitching.interface';
 import { ParticipantsService } from 'src/app/services/participants.service';
 import { setTournamentSwitching } from 'src/app/store/action/tournament-switching.action';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-lobby',
@@ -69,7 +70,7 @@ export class LobbyComponent implements OnInit {
   /**
    * update a participant from participants list using participantService.update
    */
-  updateParticipant(participantName: string, participantId: number): void {
+  updateParticipant(participantName: string, participantId: Guid): void {
     this.participants = this.participantService.update({ name: participantName, id: participantId });
     this.updateTotalParticipantsRequired();
   }
