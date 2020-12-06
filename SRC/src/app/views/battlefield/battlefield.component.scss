@@ -17,6 +17,7 @@
     }
     &.is-warning {
       background-color: $warning;
+      cursor: initial;
       .title {
         color: $grey-darker;
       }

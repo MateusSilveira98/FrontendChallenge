@@ -119,6 +119,7 @@ export class BattlefieldComponent implements OnInit {
     if (Rounds[battle.roundType] === Rounds.FINAL) {
       this.participantChampion = participant;
       this.modalConfig.show = true;
+      this.battles.forEach(item => item.show = false);
     } else {
       if (battle.winners.length === battle.participants.length / 2) {
         const nextRoundType = Rounds[battle.winners.length];
