@@ -2,19 +2,37 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">Battlefield</h1>
-      <h2 class="subtitle">Choose who will win clicking in team box</h2>
+      <h2 class="subtitle">Choose who will win clicking in participant box</h2>
     </div>
   </div>
 </header>
 <section class="section">
   <div class="container">
+    <div class="box participant-box is-warning" *ngIf="participantChampion">
+      <h1 class="title">The Champion is</h1>
+      <div class="container has-text-centered">
+        <figure class="image is-128x128 container">
+          <img [src]="trophyImgUrl">
+        </figure>
+        <h1 class="title">{{participantChampion.name}}</h1>
+      </div>
+    </div>
     <div class="box" *ngFor="let battle of battles">
-      <h1 class="title">{{battle.roundType}}</h1>
-      <div class="container">
-        <div class="columns has-text-centered" *ngFor="let match of battle.matches">
+      <div class="columns is-mobile is-align-items-center">
+        <div class="column">
+          <h1 class="title">{{battle.roundType}}</h1>
+        </div>
+        <div class="column is-flex is-justify-content-flex-end is-clickable" (click)="battle.show = !battle.show">
+          <i [ngClass]="{'gg-chevron-down': battle.show, 'gg-chevron-right': !battle.show}"></i>
+        </div>
+      </div>
+      <div class="container" *ngIf="battle.show">
+        <ng-container *ngFor="let match of battle.matches; let i = index">
+          <h2 class="subtitle">Match #{{i + 1}}</h2>
+          <div class="columns has-text-centered is-align-items-center">
             <div class="column is-3">
               <div 
-                class="box team-box"
+                class="box participant-box"
                 [ngClass]="{'winner': isParticipantWinner(match.homeParticipant, battle), 'looser': isParticipantWinner(match.awayParticipant, battle)}"
                 (click)="!isParticipantWinner(match.awayParticipant, battle) && !isParticipantWinner(match.homeParticipant, battle) && selectWinnerParticipant(match.homeParticipant, battle)"
               >
@@ -26,14 +44,15 @@
             </div>
             <div class="column is-3">
               <div 
-                class="box team-box"
+                class="box participant-box"
                 [ngClass]="{'winner': isParticipantWinner(match.awayParticipant, battle), 'looser': isParticipantWinner(match.homeParticipant, battle)}"
                 (click)="!isParticipantWinner(match.homeParticipant, battle) && !isParticipantWinner(match.awayParticipant, battle) && selectWinnerParticipant(match.awayParticipant, battle)"
               >
                 <h1 class="title">{{match.awayParticipant.name}}</h1>
               </div>
             </div>
-        </div>
+          </div>
+        </ng-container>
       </div>
     </div>
     <div class="field is-grouped is-grouped-right">
@@ -45,3 +64,12 @@
     </div>
   </div>
 </section>
+
+<app-modal [config]="modalConfig" (onClose)="modalConfig.show = $event">
+  <div class="container has-text-centered">
+    <figure class="image is-128x128 container">
+      <img [src]="trophyImgUrl">
+    </figure>
+    <h1 class="title">{{participantChampion?.name}}</h1>
+  </div>
+</app-modal>

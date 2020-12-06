@@ -1,15 +1,25 @@
 @import "~bulma/sass/utilities/all.sass";
 :host {
-  .team-box {
+  .participant-box {
     cursor: pointer;
     transition: background-color 500ms;
     background-color: $grey;
     .title {
       color: $white;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     &:hover,
     &.winner {
       background-color: $primary;
+    }
+    &.is-warning {
+      background-color: $warning;
+      .title {
+        color: $grey-darker;
+      }
     }
     &.looser {
       background-color: $grey-light;

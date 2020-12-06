@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Rounds } from 'src/app/models/enums/Rounds.enum';
+import { ModalConfig } from 'src/app/models/interfaces/ModalConfig.interface';
 import { Participant } from 'src/app/models/interfaces/Participant.interface';
 import { TournamentSwitching } from 'src/app/models/interfaces/TournamentSwitching.interface';
 
@@ -15,6 +16,7 @@ interface Battle {
   participants: Participant[];
   matches: Match[];
   winners: Participant[];
+  show: boolean;
 }
 
 @Component({
@@ -29,10 +31,23 @@ export class BattlefieldComponent implements OnInit {
   tournamentSwitching: TournamentSwitching;
 
   /**
-   * used to get roundType list
+   * used to get battles list
    */
   battles: Battle[];
 
+  /**
+   * used to get participant champion
+   */
+  participantChampion: Participant;
+
+  /**
+   * used to set modalConfig
+   */
+  modalConfig: ModalConfig = {
+    hasModalHead: true,
+    title: 'The Champion is',
+    show: false
+  };
   constructor(
     private store: Store<{ tournamentSwitching: TournamentSwitching }>,
     private router: Router
@@ -65,9 +80,9 @@ export class BattlefieldComponent implements OnInit {
       if (index === participants.length) {
         const matches = this.buildMatchesList(participants);
 
-        battles.push({ roundType, participants, matches, winners: []});
+        battles.push({ roundType, participants, matches, winners: [], show: true});
       } else {
-        battles.push({ roundType, participants: [], matches: [], winners: []});
+        battles.push({ roundType, participants: [], matches: [], winners: [], show: true});
       }
     }
     return battles;
@@ -102,7 +117,8 @@ export class BattlefieldComponent implements OnInit {
   selectWinnerParticipant(participant: Participant, battle: Battle): void {
     battle.winners.push(participant);
     if (Rounds[battle.roundType] === Rounds.FINAL) {
-      alert(`${participant.name} is the champion`);
+      this.participantChampion = participant;
+      this.modalConfig.show = true;
     } else {
       if (battle.winners.length === battle.participants.length / 2) {
         const nextRoundType = Rounds[battle.winners.length];
@@ -118,5 +134,12 @@ export class BattlefieldComponent implements OnInit {
    */
   isParticipantWinner(participant: Participant, battle: Battle): boolean {
     return !!battle.winners.find(item => item.id === participant.id);
+  }
+
+  /**
+   * get trophy image url
+   */
+  get trophyImgUrl(): string {
+    return '/assets/images/trophy.png';
   }
 }
