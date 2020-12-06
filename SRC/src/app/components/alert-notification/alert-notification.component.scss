@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   .notification {
-    position: absolute;
+    position: fixed;
     top: 50px;
-    width: 90%;
-    max-width: 1215px;
+    width: 90vw;
+    max-width: 1240px;
   }
 }
