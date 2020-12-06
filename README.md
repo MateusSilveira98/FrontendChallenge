@@ -4,6 +4,7 @@
 - typescript *4.0.5*
 
 **to start application**
+- access SRC folder
 - npm i or yarn.
 - npm start or ng serve. 
 - access http://localhost:4200
