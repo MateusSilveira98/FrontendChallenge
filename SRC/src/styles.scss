@@ -1,5 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+/* Bulma design, grid, variables, utilities, color palette */
 @import "~bulma/bulma.sass";
+
+/* Project styles, can have mixins, variables, utilities, color palette, font-sizes, icons */
 @import "src/assets/styles/global.scss";
 
 html,

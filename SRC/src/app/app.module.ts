@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { AppStoreModule } from './store/app-store.module';
 import { BattlefieldComponent } from './views/battlefield/battlefield.component';
 import { LobbyComponent } from './views/lobby/lobby.component';
-import {ComponentsModule} from './components/components.module';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
