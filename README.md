@@ -5,6 +5,6 @@
 
 **to start application**
 - access SRC folder
-- npm i or yarn.
-- npm start or ng serve. 
-- access http://localhost:4200
+- run npm i or yarn.
+- run npm start or ng serve. 
+- access http://localhost:4200 on browser
